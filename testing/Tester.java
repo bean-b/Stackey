@@ -48,6 +48,7 @@ public class Tester {
         String output = os.toString("UTF8");
         assertEquals("54321", output);
     }
+    
     @Test
     public void testVariables() throws IOException{
         String toTest = "2\r\n>x\r\n\"hello world \r\n<x\r\n.doFor\r\n.duplicate\r\n.sizeOfStack\r\n.doFor\r\n.print\r\n#and A comment for Fun";
