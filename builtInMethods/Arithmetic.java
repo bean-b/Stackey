@@ -13,6 +13,24 @@ public class Arithmetic extends Method{
     public void run(Parser parser) {
         parser.checkSize(2);
         Data d1 = parser.pop();
+        switch(name){
+            case("++"):{
+                if(d1.getGetType() == Data.Type.INT){
+                    parser.push(new Data(Data.Type.INT, (Integer)d1.getData()+1));
+                }else{
+                    throw new Error("invalid args, expected ints" + name);
+                }
+                return;
+            }
+            case("--"):{
+                if(d1.getGetType() == Data.Type.INT){
+                    parser.push(new Data(Data.Type.INT, (Integer)d1.getData()-1));
+                }else{
+                    throw new Error("invalid args, expected ints" + name);
+                }
+                return;
+            }
+        }
         Data d2 = parser.pop();
         
         if(d1.getGetType() == Data.Type.INT && d2.getGetType() == Data.Type.INT){

@@ -25,7 +25,7 @@ public class Parser {
     }
 
     private void addInBuiltMethods() {
-        String[] arithmetics = new String[]{"+", "-", "*", "^", "/", "%"};
+        String[] arithmetics = new String[]{"+", "-", "*", "^", "/", "%", "++", "--"};
         for(String s : arithmetics) {
             methodMap.put(s, new Arithmetic(s));
         }
@@ -55,14 +55,16 @@ public class Parser {
                     break;
                 }
                 case("."):{
-
                     if(methodMap.containsKey(bodyText)){
                             while(doFor > 0){
                                 methodMap.get(bodyText).run(this);
                                 doFor-=1;
-                            } 
-                            doFor = 0;  
-                            methodMap.get(bodyText).run(this);
+                            }
+                            if(doFor == 0){
+                                methodMap.get(bodyText).run(this);
+                            }else{
+                                doFor = 0;
+                            }
                     }else{
                         throw new Error("no method named " + bodyText);
                     }
@@ -110,7 +112,7 @@ public class Parser {
 
     public void checkSize(int n){
         if(theStack.size() < n-1){
-            throw new Error("attempting to read from an empty stack");
+            throw new Error("attempting to read" + (n-1) + " times from a stack of size " + theStack.size());
         }
     }
 
@@ -123,10 +125,10 @@ public class Parser {
     }
 
     public void nextMethodDuplicate(Integer doFor) {
-        this.doFor = (doFor-1);
+        this.doFor = (doFor);
     }
 
     public int stackSize() {
-        return theStack.size()-1;
+        return theStack.size();
     }
 }

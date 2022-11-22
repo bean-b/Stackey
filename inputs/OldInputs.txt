@@ -9,9 +9,13 @@
 1
 .range
 .sizeOfStack
+1
+.-
 .doFor
 .*
 <x
+1
+.-
 .doFor
 .duplicate
 .sizeOfStack
