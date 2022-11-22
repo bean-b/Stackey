@@ -14,7 +14,7 @@ public class Parser {
     private PrintStream printStream;
     private int doFor = 0;
 
-    Parser(PrintStream printStream){
+    public Parser(PrintStream printStream){
         this.printStream = printStream;
         theStack = new Stack<>();
         addInBuiltMethods();
@@ -89,10 +89,10 @@ public class Parser {
                 }
 
                 default:{
-                    if(Helper.isInteger(data.get(i))){
+                    if(Helper.isInteger(curStr)){
                         push(new Data(Data.Type.INT, Integer.valueOf(curStr)));
                     }else{
-                        throw new Error("attempting to read data as an int that isn't an int");
+                        throw new Error("attempting to read" + curStr + "as an int that isn't an int");
                     }
                 }
             }

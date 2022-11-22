@@ -6,21 +6,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 public class InputManager{
     public static void main(String[] args) throws IOException {
         Parser parser = new Parser(System.out);
-        parseFile("inputs\\Input.txt", parser);
+        parseFile(new FileReader("inputs\\Input.txt"), parser);
 
     }
 
-    public static void parseFile(String fileName, Parser parser) throws IOException{
-        BufferedReader reader = new BufferedReader(new FileReader(fileName));
+    public static void parseFile(FileReader file, Parser parser) throws IOException{
+        BufferedReader reader = new BufferedReader(file);
         List<String> data = new ArrayList<>();
         String curLine = "";
         while((curLine = reader.readLine()) != null){;
             data.add(curLine);
         }
         reader.close();
+        parser.Interpret(data);
+    }
+    public static void parseFile(String text, Parser parser) throws IOException{
+        List<String> data = new ArrayList<>();
+        String[] lines = text.split(System.lineSeparator());
+        for (String string : lines) {
+            System.out.println(string);
+            data.add(string);
+        }
         parser.Interpret(data);
     }
 }

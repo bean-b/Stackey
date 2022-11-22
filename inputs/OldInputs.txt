@@ -1,3 +1,4 @@
+#This is a comment, and this is an example Stackey program
 "(Input int n) will print n! n times
 .println
 .input
