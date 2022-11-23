@@ -14,7 +14,7 @@ public class Iterator extends Method{
                 parser.checkSize(2);
                 Data d1 = parser.pop();
                 Data d2 = parser.pop();
-                for(int i=(Integer)d1.getData(); i<(Integer)d2.getData(); i++){
+                for(int i=(Integer)d2.getData(); i<(Integer)d1.getData(); i++){
                     parser.push(new Data(Data.Type.INT, i));
                 }
                 break;

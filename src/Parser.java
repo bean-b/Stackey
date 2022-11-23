@@ -13,6 +13,8 @@ public class Parser {
     private HashMap<String, Data> variableMap = new HashMap<>();
     private PrintStream printStream;
     private int doFor = 0;
+    private int doForPos = -1;
+    private int curLine = 1;
 
     public Parser(PrintStream printStream){
         this.printStream = printStream;
@@ -40,67 +42,84 @@ public class Parser {
         methodMap.put("input", new In("input"));
         methodMap.put("range", new Iterator("range"));
         methodMap.put("doFor", new FlowControl("doFor"));
+        methodMap.put("goTo", new FlowControl("goTo"));
     }
 
     private void makeToStack(List<String> data){
-        for(int i=0; i<data.size(); i++){
-            String curStr = data.get(i);
+        for(curLine=0; curLine<data.size();){
+            String curStr = data.get(curLine);
             
             if(curStr.length() == 0){
                 throw new Error("can't read empty string");
             }
-            String bodyText = curStr.substring(1,curStr.length());
-            switch(curStr.substring(0,1)){
-                case("#"):{
-                    break;
-                }
-                case("."):{
-                    if(methodMap.containsKey(bodyText)){
-                            while(doFor > 0){
-                                methodMap.get(bodyText).run(this);
-                                doFor-=1;
-                            }
-                            if(doFor == 0){
-                                methodMap.get(bodyText).run(this);
-                            }else{
-                                doFor = 0;
-                            }
-                    }else{
-                        throw new Error("no method named " + bodyText);
-                    }
-                    break;
-                }
 
-                case(">"):{
-                    variableMap.put(bodyText, theStack.pop());
-                    break;
-                }
-
-                case("<"):{
-                    if(variableMap.containsKey(bodyText)){
-                        push(variableMap.get(bodyText));
-                    }else{
-                        throw new Error("invalid variable name");
-                    }
-                    break;
-                }
-
-                case("\""):{
-                    push(new Data(Data.Type.STRING, bodyText));
-                    break;
-                }
-
-                default:{
-                    if(Helper.isInteger(curStr)){
-                        push(new Data(Data.Type.INT, Integer.valueOf(curStr)));
-                    }else{
-                        throw new Error("attempting to read" + curStr + "as an int that isn't an int");
-                    }
-                }
+            int curLine2 = parseString(curStr);
+            if(curLine == curLine2){
+                curLine++;
+            }else{
+                curLine = curLine2;
             }
+            
         }
     }
     
+    public int parseString(String curStr){
+        String bodyText = curStr.substring(1,curStr.length());
+        switch(curStr.substring(0,1)){
+            case("#"):{
+                break;
+            }
+            case("."):{
+                if(methodMap.containsKey(bodyText)){
+                    methodMap.get(bodyText).run(this);
+                }else{
+                    throw new Error("no method named " + bodyText);
+                }
+                break;
+            }
+
+            case(">"):{
+                variableMap.put(bodyText, theStack.pop());
+                break;
+            }
+
+            case("<"):{
+                if(variableMap.containsKey(bodyText)){
+                    push(variableMap.get(bodyText));
+                }else{
+                    throw new Error("invalid variable name");
+                }
+                break;
+            }
+            
+            case("{"):{
+                doForPos = curLine + 1;
+                break;
+            }
+
+            case("}"):{
+                if(doFor > 0){
+                    doFor -= 1;
+                    return doForPos;
+                }
+                break;
+            }
+
+            case("\""):{
+                push(new Data(Data.Type.STRING, bodyText));
+                break;
+            }
+
+            default:{
+                if(Helper.isInteger(curStr)){
+                    push(new Data(Data.Type.INT, Integer.valueOf(curStr)));
+                }else{
+                    throw new Error("attempting to read" + curStr + "as an int that isn't an int");
+                }
+            }
+        }
+        return curLine;
+    }
 
     public void push(Data n){
         theStack.push(n);
@@ -130,5 +149,9 @@ public class Parser {
 
     public int stackSize() {
         return theStack.size();
+    }
+
+    public void setCurLine(int n){
+        curLine = n;
     }
 }

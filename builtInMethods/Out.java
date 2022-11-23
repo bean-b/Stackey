@@ -11,7 +11,6 @@ public class Out extends Method{
     public void run(Parser parser) {
         parser.checkSize(ARGS);
         Data d1 = parser.pop();
-        boolean println = name.equals("println") ? true : false;
-        parser.out(d1, println);
+        parser.out(d1, name.equals("println") ? true : false);
     }
 }
