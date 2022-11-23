@@ -1,11 +1,23 @@
+#This is a comment, and this is an example Stackey program
+"(Input int n) will print n! n times
+.println
 1
-2
-3
-4
-5
-.sizeOfStack
+.input
+>x
+<x
+.++
+.range
+<x
+.--
 .doFor
 {
-4
-.+
+.*
 }
+<x
+.--
+.doFor
+{
+.duplicate
+.println
+}
+.println
