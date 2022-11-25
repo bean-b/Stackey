@@ -28,7 +28,6 @@ public class InputManager{
         List<String> data = new ArrayList<>();
         String[] lines = text.split(System.lineSeparator());
         for (String string : lines) {
-            System.out.println(string);
             data.add(string);
         }
         parser.Interpret(data);
