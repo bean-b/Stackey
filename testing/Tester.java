@@ -31,6 +31,7 @@ public class Tester {
         InputManager.parseFile(toTest, parser);
         String output = os.toString("UTF8");
         assertEquals("7", output);
+        parser.close();
     }
 
     @Test
@@ -39,6 +40,7 @@ public class Tester {
         InputManager.parseFile(toTest, parser);
         String output = os.toString("UTF8");
         assertEquals("5", output);
+        parser.close();
     }
 
     @Test
@@ -47,6 +49,7 @@ public class Tester {
         InputManager.parseFile(toTest, parser);
         String output = os.toString("UTF8");
         assertEquals("54321", output);
+        parser.close();
     }
     
     @Test
@@ -55,6 +58,7 @@ public class Tester {
         InputManager.parseFile(toTest, parser);
         String output = os.toString("UTF8");
         assertEquals("hello world hello world hello world ", output);
+        parser.close();
     }
 
     @Test
@@ -63,6 +67,7 @@ public class Tester {
         InputManager.parseFile(toTest, parser);
         String output = os.toString("UTF8");
         assertEquals("120", output);
+        parser.close();
     }
     @Test
     public void testNestedDoFor() throws IOException{
@@ -70,5 +75,6 @@ public class Tester {
         InputManager.parseFile(toTest, parser);
         String output = os.toString("UTF8");
         assertEquals("1412", output);
+        parser.close();
     }
 }

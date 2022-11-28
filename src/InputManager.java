@@ -11,6 +11,7 @@ public class InputManager{
     public static void main(String[] args) throws IOException {
         Parser parser = new Parser(System.out);
         parseFile(new FileReader("inputs\\Input.txt"), parser);
+        parser.close();
 
     }
 

@@ -21,3 +21,18 @@
 .println
 }
 .println
+
+"takes input n,s, program prints n*n=x*x=y*y etc.. s times 
+.println
+.input
+>x
+.input
+.doFor
+{
+<x
+<x
+.*
+.duplicate
+>x
+.println
+}

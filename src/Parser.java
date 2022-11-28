@@ -2,6 +2,7 @@ package src;
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Stack;
 
 import builtInMethods.*;
@@ -9,6 +10,7 @@ import builtInMethods.Out;
 
 public class Parser {
     private Stack<Data> theStack;
+    private Scanner sc;
     private HashMap<String, Method> methodMap = new HashMap<>();
     private HashMap<String, Data> variableMap = new HashMap<>();
     private PrintStream printStream;
@@ -20,6 +22,7 @@ public class Parser {
         this.printStream = printStream;
         theStack = new Stack<>();
         addInBuiltMethods();
+        sc = new Scanner(System.in);
     }
 
     public void Interpret(List<String> data){
@@ -153,5 +156,14 @@ public class Parser {
 
     public void setCurLine(int n){
         curLine = n;
+    }
+
+    public String getInput(){
+        String input = sc.nextLine();
+        return input;
+    }
+
+    public void close(){
+        sc.close();
     }
 }

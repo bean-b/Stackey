@@ -51,6 +51,7 @@ public class GUI{
                         InputManager.parseFile(textField.getText().replaceAll("\n", System.lineSeparator()), parser);
                         String output = os.toString("UTF8");
                         outPutField.setText(output);
+                        os.reset();
                     }
                 } catch (IOException e1) {
                     // e1.printStackTrace();
