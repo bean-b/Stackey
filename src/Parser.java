@@ -44,7 +44,7 @@ public class Parser {
         methodMap.put("println", new Out("println"));
         methodMap.put("input", new In("input"));
         methodMap.put("range", new Iterator("range"));
-        methodMap.put("doFor", new FlowControl("doFor"));
+        methodMap.put("for", new FlowControl("for"));
         methodMap.put("goTo", new FlowControl("goTo"));
     }
 
@@ -90,7 +90,7 @@ public class Parser {
                 if(variableMap.containsKey(bodyText)){
                     push(variableMap.get(bodyText));
                 }else{
-                    throw new Error("invalid variable name");
+                    throw new Error("invalid variable name: " + bodyText);
                 }
                 break;
             }

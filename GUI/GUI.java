@@ -13,6 +13,7 @@ import src.InputManager;
 import src.Parser;
 
 public class GUI{
+    private static final float FONT_SIZE = 14f;
     private static JFrame frame;
     private static JTextArea textField;
     private static JTextArea outPutField;
@@ -36,8 +37,10 @@ public class GUI{
  
  
         textField = new JTextArea(25, 25);
+        textField.setFont(textField.getFont().deriveFont(FONT_SIZE));
         outPutField = new JTextArea(25, 25);
         outPutField.setEditable(false);
+        outPutField.setFont(outPutField.getFont().deriveFont(FONT_SIZE));
         // theStackField = new JTextArea(25, 25);
         // theStackField.setEditable(false);
         JButton runAllButton = new JButton("Run All");
