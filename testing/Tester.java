@@ -77,4 +77,12 @@ public class Tester {
         assertEquals("1412", output);
         parser.close();
     }
+    @Test
+    public void testNestedFor() throws IOException{
+        String toTest = "0\r\n>x\r\n22\r\n.for\r\n{\r\n8\r\n.for\r\n{\r\n<x\r\n.++\r\n>x\r\n}\r\n}\r\n<x\r\n.print";
+        InputManager.parseFile(toTest, parser);
+        String output = os.toString("UTF8");
+        assertEquals("176", output);
+        parser.close();
+    }
 }

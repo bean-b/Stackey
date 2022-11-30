@@ -1,4 +1,5 @@
 package src;
+import java.io.InputStream;
 import java.io.PrintStream;
 
 import java.util.HashMap;
@@ -18,14 +19,17 @@ public class Parser {
     private Stack<Integer> resetPositions;
     private int curLine = 1;
 
-    public Parser(PrintStream printStream){
+    public Parser(PrintStream printStream, InputStream io){
         this.printStream = printStream;
         theStack = new Stack<>();
         methodMap = new HashMap<>();
         variableMap = new HashMap<>();
         resetPositions = new Stack<>();
+        sc = new Scanner(io);
         addInBuiltMethods();
-        sc = new Scanner(System.in);
+    }
+    public Parser(PrintStream printStream){
+        this(printStream, System.in);
     }
 
     public void Interpret(List<String> data){
@@ -56,7 +60,7 @@ public class Parser {
             String curStr = data.get(curLine);
             
             if(curStr.length() == 0){
-                throw new Error("can't read empty string");
+                throw new Error("can't read empty string at line " + curLine);
             }
 
             int curLine2 = parseString(curStr);
@@ -79,12 +83,13 @@ public class Parser {
                 if(methodMap.containsKey(bodyText)){
                     methodMap.get(bodyText).run(this);
                 }else{
-                    throw new Error("no method named " + bodyText);
+                    throw new Error("no method named " + bodyText + " at line " + curLine);
                 }
                 break;
             }
 
             case(">"):{
+                checkSize(1);
                 variableMap.put(bodyText, theStack.pop());
                 break;
             }
@@ -93,7 +98,7 @@ public class Parser {
                 if(variableMap.containsKey(bodyText)){
                     push(variableMap.get(bodyText));
                 }else{
-                    throw new Error("invalid variable name: " + bodyText);
+                    throw new Error("invalid variable name: " + bodyText + " at line " + curLine);
                 }
                 break;
             }
@@ -118,7 +123,7 @@ public class Parser {
                 if(Helper.isInteger(curStr)){
                     push(new Data(Data.Type.INT, Integer.valueOf(curStr)));
                 }else{
-                    throw new Error("attempting to read" + curStr + "as an int that isn't an int");
+                    throw new Error("attempting to read" + curStr + "as an int that isn't an int" + " at line " + curLine);
                 }
             }
         }
@@ -135,7 +140,7 @@ public class Parser {
 
     public void checkSize(int n){
         if(theStack.size() < n-1){
-            throw new Error("attempting to read" + (n-1) + " times from a stack of size " + theStack.size());
+            throw new Error("attempting to read" + (n-1) + " times from a stack of size " + theStack.size() + " at line " + curLine);
         }
     }
 
