@@ -1,5 +1,6 @@
 package src;
 import java.io.PrintStream;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -11,16 +12,18 @@ import builtInMethods.Out;
 public class Parser {
     private Stack<Data> theStack;
     private Scanner sc;
-    private HashMap<String, Method> methodMap = new HashMap<>();
-    private HashMap<String, Data> variableMap = new HashMap<>();
+    private HashMap<String, Method> methodMap;
+    private HashMap<String, Data> variableMap;
     private PrintStream printStream;
-    private int doFor = 0;
-    private int doForPos = -1;
+    private Stack<Integer> resetPositions;
     private int curLine = 1;
 
     public Parser(PrintStream printStream){
         this.printStream = printStream;
         theStack = new Stack<>();
+        methodMap = new HashMap<>();
+        variableMap = new HashMap<>();
+        resetPositions = new Stack<>();
         addInBuiltMethods();
         sc = new Scanner(System.in);
     }
@@ -96,14 +99,12 @@ public class Parser {
             }
             
             case("{"):{
-                doForPos = curLine + 1;
                 break;
             }
 
             case("}"):{
-                if(doFor > 0){
-                    doFor -= 1;
-                    return doForPos;
+                if(resetPositions.size() > 0){
+                    return resetPositions.pop();
                 }
                 break;
             }
@@ -146,8 +147,10 @@ public class Parser {
         }
     }
 
-    public void nextMethodDuplicate(Integer doFor) {
-        this.doFor = (doFor);
+    public void nextMethodDuplicate(Integer resetPos, int numTimes) {
+        for(int i=0; i<numTimes; i++){
+            resetPositions.add(resetPos);
+        }
     }
 
     public int stackSize() {
@@ -165,5 +168,8 @@ public class Parser {
 
     public void close(){
         sc.close();
+    }
+    public int getCurLine(){
+        return curLine;
     }
 }

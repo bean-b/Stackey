@@ -14,7 +14,7 @@ public class FlowControl extends Method{
                 if(d1.getGetType() != Data.Type.INT){
                     throw new Error("Invalid args, expected int" + name);
                 }
-                parser.nextMethodDuplicate((Integer)d1.getData()-1);
+                parser.nextMethodDuplicate(parser.getCurLine()+1, (Integer)d1.getData()-1);
                 break;
             }
             case("goTo"):{

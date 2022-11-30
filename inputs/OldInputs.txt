@@ -9,13 +9,13 @@
 .range
 <x
 .--
-.doFor
+.for
 {
 .*
 }
 <x
 .--
-.doFor
+.for
 {
 .duplicate
 .println
@@ -27,7 +27,7 @@
 .input
 >x
 .input
-.doFor
+.for
 {
 <x
 <x
