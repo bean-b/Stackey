@@ -8,7 +8,7 @@ public class FlowControl extends Method{
     @Override
     public void run(Parser parser) {
         switch(name){
-            case("doFor"):{
+            case("for"):{
                 parser.checkSize(1);
                 Data d1 = parser.pop();
                 if(d1.getGetType() != Data.Type.INT){
