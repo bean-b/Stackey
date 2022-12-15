@@ -12,11 +12,13 @@ import builtInMethods.Out;
 
 public class Parser {
     private Stack<Data> theStack;
-    private Scanner sc;
     private HashMap<String, Method> methodMap;
     private HashMap<String, Data> variableMap;
-    private PrintStream printStream;
     private Stack<Integer> resetPositions;
+
+    private Scanner sc;
+    private PrintStream printStream;
+
     private int curLine = 1;
 
     public Parser(PrintStream printStream, InputStream io){
@@ -62,13 +64,9 @@ public class Parser {
             if(curStr.length() == 0){
                 throw new Error("can't read empty string at line " + curLine);
             }
-
+            
             int curLine2 = parseString(curStr);
-            if(curLine == curLine2){
-                curLine++;
-            }else{
-                curLine = curLine2;
-            }
+            curLine = (curLine == curLine2) ? curLine + 1 : curLine2;
             
         }
     }
@@ -79,6 +77,7 @@ public class Parser {
             case("#"):{
                 break;
             }
+            
             case("."):{
                 if(methodMap.containsKey(bodyText)){
                     methodMap.get(bodyText).run(this);

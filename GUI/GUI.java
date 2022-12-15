@@ -1,6 +1,7 @@
 package GUI;
 
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayOutputStream;
@@ -13,7 +14,7 @@ import src.InputManager;
 import src.Parser;
 
 public class GUI{
-    private static final float FONT_SIZE = 14f;
+    private static final float FONT_SIZE = 16f;
     private static JFrame frame;
     private static JTextArea textField;
     private static JTextArea outPutField;
@@ -75,7 +76,6 @@ public class GUI{
         // panel.add(incrementButton);
         panel.add(outPutField);
         // panel.add(theStackField);
- 
  
         frame.getContentPane().add(panel);
         frame.setVisible(true);

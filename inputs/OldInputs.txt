@@ -1,5 +1,5 @@
 #This is a comment, and this is an example Stackey program
-"(Input int n) will print n! n times
+"(Input int n) will print (n!) n times
 .println
 1
 .input
@@ -21,6 +21,8 @@
 .println
 }
 .println
+
+
 
 "takes input n,s, program prints n*n=x*x=y*y etc.. s times 
 .println

@@ -1,15 +1,4 @@
-0
->x
-22
-.for
-{
-8
-.for
-{
-<x
-.++
->x
-}
-}
-<x
-.println
+"hello world
+4
+5
+.+
